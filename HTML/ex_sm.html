@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider | Home</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #333;
+  color: #fff;
+  line-height: 1.8;
+}
+.slider{
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.slide{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+.slide.current {
+    opacity: 1;
+}
+.slide .content{
+    position: absolute;
+    bottom: 70px;
+    left: -600px;
+    opacity: 0;
+    background-color: whitesmoke;
+    color: black;
+    width: 600px;
+    padding: 10px 20px;
+}
+.slide.slide.current .content{
+    opacity: 1;
+    transform: translateX(600px);
+    transition: all 0.7s ease-in-out 0.3s;
+}
+.buttons #prev{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    width: max-content;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+.buttons #next{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    width: max-content;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+}
+button:hover{
+    background-color: yellow !important;
+}
+
+/* Backgorund Images */
+ 
+.slide:first-child {
+    background: url('https://source.unsplash.com/RyRpq9SUwAU/1600x900') no-repeat
+      center top/cover;
+  }
+  .slide:nth-child(2) {
+    background: url('https://source.unsplash.com/BeOW_PJjA0w/1600x900') no-repeat
+      center top/cover;
+  }
+  .slide:nth-child(3) {
+    background: url('https://source.unsplash.com/TMOeGZw9NY4/1600x900') no-repeat
+      center top/cover;
+  }
+  .slide:nth-child(4) {
+    background: url('https://source.unsplash.com/yXpA_eCbtzI/1600x900') no-repeat
+      center top/cover;
+  }
+  .slide:nth-child(5) {
+    background: url('https://source.unsplash.com/ULmaQh9Gvbg/1600x900') no-repeat
+      center top/cover;
+  } 
+  .slide:nth-child(6)  {
+    background: url('https://source.unsplash.com/ggZuL3BTSJU/1600x900') no-repeat
+      center center/cover;
+  }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <div class="slide current">
+            <div class="content">
+                <h1>Slide One</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum sapiente similique sit. Ipsa, non sed.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="content">
+                <h1>Slide Two</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum sapiente similique sit. Ipsa, non sed.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="content">
+                <h1>Slide Three</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum sapiente similique sit. Ipsa, non sed.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="content">
+                <h1>Slide Four</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum sapiente similique sit. Ipsa, non sed.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="content">
+                <h1>Slide Five</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum sapiente similique sit. Ipsa, non sed.</p>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="content">
+                <h1>Slide Six</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum sapiente similique sit. Ipsa, non sed.</p>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button id="prev"><i class="fas fa-arrow-left"></i></button>
+        <button id="next"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    <script>
+        const slides = document.querySelectorAll('.slide');
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
+const auto = true;
+const intervalTime = 4000;
+let slideInterval;
+
+next.addEventListener('click', nextSlide);
+
+function nextSlide(){
+    const current = document.querySelector('.current');
+    current.classList.remove('current');
+    if(current.nextElementSibling){
+        current.nextElementSibling.classList.add('current');
+    }
+    else{
+        slides[0].classList.add('current');
+    }
+    if(auto){
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
+}
+
+prev.addEventListener('click', prevSlide);
+
+function prevSlide(){
+    const current = document.querySelector('.current');
+    current.classList.remove('current');
+    if(current.previousElementSibling){
+        current.previousElementSibling.classList.add('current');
+    }
+    else{
+        slides[slides.length - 1].classList.add('current');
+    }
+    if(auto){
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
+}
+
+if(auto){
+    slideInterval = setInterval(nextSlide, intervalTime);
+}
+    </script>
+</body>
+</html>
